@@ -1,0 +1,98 @@
+/* --- LOGIN CONTAINER STYLING --- */
+.login-container {
+  max-width: 400px;
+  padding: 30px; /* Increased padding for better spacing */
+  border: 1px solid #ced4da; /* Changed to a softer, straight border */
+  background-color: #ffffff; /* Cleaner white background */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Stronger, modern shadow */
+  border-radius: 0; /* REMOVED ALL ROUNDED CORNERS (Straight Border) */
+  
+  /* Centering Method: Effective, but ensure the parent body has height: 100vh; for this to work well */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Stretches children (like buttons) to full width */
+}
+
+/* --- TITLE STYLING --- */
+.login-container h2 {
+  text-align: center; /* Ensures LOGIN title is centered */
+  margin-bottom: 25px; /* Increased bottom margin */
+  color: #333;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* --- FORM GROUP & INPUTS --- */
+.form-group {
+  margin-bottom: 20px; /* Increased spacing between form groups */
+  width: 100%; /* Ensure form groups take full container width */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600; /* Bolder label text */
+  color: #495057;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px; /* Increased padding */
+  border: 1px solid #ced4da;
+  border-radius: 0; /* Straight border for inputs */
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Subtle focus ring */
+}
+
+/* --- ERROR MESSAGE --- */
+.error {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 5px; /* Added margin to separate from input */
+}
+
+/* --- SUBMIT BUTTON --- */
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0; /* Straight border for button */
+  font-size: 18px; /* Slightly larger text */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* --- FOOTER TEXT --- */
+.login-container p {
+  text-align: center;
+  margin-top: 15px; /* Added spacing above the text */
+  color: #6c757d;
+}
+
+.login-container a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.login-container a:hover {
+  text-decoration: underline;
+}

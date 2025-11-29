@@ -10,8 +10,6 @@ const Navbar = ({ variant = 'default', showSearch = false, showRegister = false 
         return (
           <>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/services">Services</Link></li>
           </>
         );
       case 'simple':
@@ -31,7 +29,6 @@ const Navbar = ({ variant = 'default', showSearch = false, showRegister = false 
             <>
               <li><Link to="/">Home</Link></li>
               <li><Link to="/auth">Login</Link></li>
-              <li><Link to="/register">Register</Link></li>
             </>
           );
         }
@@ -39,26 +36,23 @@ const Navbar = ({ variant = 'default', showSearch = false, showRegister = false 
   };
 
   return (
-    <nav className="navbar">
-      <div className="navbar-brand">
-        <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
-          <h1>Travel</h1>
-        </Link>
-      </div>
-      {showSearch && (
-        <div className="navbar-search">
-          <input type="text" placeholder="Search destinations..." />
-          <button className="search-btn">🔍</button>
+    <nav className="navbar main-header">
+      <div className="navbar-container">
+        <div className="navbar-brand">
+          <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+            <h1>Travel</h1>
+          </Link>
         </div>
-      )}
-      <ul className="navbar-links">
-        {renderLinks()}
-        {showRegister && !user && (
-          <li>
-            <Link to="/register" className="register-btn">Register</Link>
-          </li>
+        {showSearch && (
+          <div className="navbar-search">
+            <input type="text" placeholder="Search destinations..." />
+            <button className="search-btn">🔍</button>
+          </div>
         )}
-      </ul>
+        <ul className="navbar-links">
+          {renderLinks()}
+        </ul>
+      </div>
     </nav>
   );
 };

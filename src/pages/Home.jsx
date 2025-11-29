@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import BookingModal from '../components/BookingModal';
@@ -11,10 +13,27 @@ const Home = () => {
   const [activeFilter, setActiveFilter] = useState('All');
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [showBookingModal, setShowBookingModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [checkInDate, setCheckInDate] = useState(null);
+  const searchRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const services = [
     { icon: '✈️', name: 'Flight Booking', description: 'Book flights worldwide with best prices' },
-    { icon: '🏨', name: 'Hotel Booking', description: 'Find perfect accommodations for your stay' },
+    { icon: '🏨', name: 'Hotel Booking', description: 'Book accommodations for your stay' },
     { icon: '📦', name: 'Tour Package', description: 'Complete travel packages with all inclusions' },
     { icon: '🚗', name: 'Car Rental', description: 'Rent vehicles for your journey' },
   ];
@@ -70,7 +89,109 @@ const Home = () => {
     },
   ];
 
+  const destinations = [
+    {
+      name: 'Bali, Indonesia',
+      image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=200',
+      description: 'Tropical paradise with beautiful beaches and culture',
+      price: '₹45,000',
+      duration: '7 Days',
+      rating: 4.8
+    },
+    {
+      name: 'Goa, India',
+      image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=200',
+      description: 'Vibrant beaches, nightlife, and Portuguese heritage',
+      price: '₹25,000',
+      duration: '5 Days',
+      rating: 4.6
+    },
+    {
+      name: 'Manali, India',
+      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200',
+      description: 'Mountain paradise with adventure activities',
+      price: '₹35,000',
+      duration: '6 Days',
+      rating: 4.7
+    },
+    {
+      name: 'Swiss Alps',
+      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200',
+      description: 'Stunning alpine landscapes and luxury resorts',
+      price: '₹75,000',
+      duration: '8 Days',
+      rating: 4.9
+    },
+    {
+      name: 'Yogyakarta, Indonesia',
+      image: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=200',
+      description: 'Cultural heart of Java with ancient temples',
+      price: '₹35,000',
+      duration: '6 Days',
+      rating: 4.7
+    },
+    {
+      name: 'Karimun Jawa, Indonesia',
+      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200',
+      description: 'Hidden paradise with pristine beaches',
+      price: '₹28,000',
+      duration: '4 Days',
+      rating: 4.6
+    },
+    {
+      name: 'Paris, France',
+      image: 'https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=200',
+      description: 'City of love with iconic landmarks',
+      price: '₹85,000',
+      duration: '7 Days',
+      rating: 4.8
+    },
+    {
+      name: 'Tokyo, Japan',
+      image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=200',
+      description: 'Modern metropolis with traditional culture',
+      price: '₹95,000',
+      duration: '8 Days',
+      rating: 4.9
+    },
+    {
+      name: 'New York, USA',
+      image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=200',
+      description: 'The city that never sleeps',
+      price: '₹1,20,000',
+      duration: '9 Days',
+      rating: 4.7
+    },
+    {
+      name: 'Dubai, UAE',
+      image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=200',
+      description: 'Luxury and innovation in the desert',
+      price: '₹65,000',
+      duration: '6 Days',
+      rating: 4.8
+    }
+  ];
+
   const filteredPackages = activeFilter === 'All' ? tourPackages : tourPackages.filter(pkg => pkg.type === activeFilter);
+
+  const filteredDestinations = destinations.filter(dest =>
+    dest.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setShowSuggestions(e.target.value.length > 0);
+  };
+
+  const handleSuggestionClick = (destination) => {
+    setSearchQuery(destination);
+    setShowSuggestions(false);
+  };
+
+  const handleSearch = () => {
+    // Navigate to search results or filter packages
+    console.log('Searching for:', searchQuery, 'Check-in date:', checkInDate);
+  };
 
   const handleBookNow = (pkg) => {
     setSelectedPackage(pkg);
@@ -83,7 +204,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div style={{ margin: 0, padding: 0, width: '100%', display: 'block' }}>
       <Navbar showSearch={true} showRegister={true} />
       <main>
         {/* Hero Section */}
@@ -118,34 +239,180 @@ const Home = () => {
           </h1>
           <div style={{
             display: 'flex',
+            flexDirection: 'column',
             gap: '1rem',
             zIndex: 1,
             maxWidth: '600px',
-            width: '100%'
+            width: '100%',
+            position: 'relative'
           }}>
-            <input
-              type="text"
-              placeholder="Search destinations..."
-              style={{
-                flex: 1,
-                padding: '1rem',
-                border: 'none',
-                borderRadius: '5px',
-                fontSize: '1rem'
-              }}
-            />
-            <button style={{
-              padding: '1rem 2rem',
-              backgroundColor: '#ff6b35',
-              color: 'white',
-              border: 'none',
-              borderRadius: '5px',
-              fontSize: '1rem',
-              fontWeight: 'bold',
-              cursor: 'pointer'
+            <div style={{
+              display: 'flex',
+              gap: '1rem',
+              position: 'relative'
+            }} ref={searchRef}>
+              <input
+                type="text"
+                placeholder="Search destinations..."
+                value={searchQuery}
+                onChange={handleSearchChange}
+                style={{
+                  flex: 1,
+                  padding: '1rem',
+                  border: 'none',
+                  borderRadius: '5px',
+                  fontSize: '1rem'
+                }}
+              />
+              <button
+                onClick={handleSearch}
+                style={{
+                  padding: '1rem 2rem',
+                  backgroundColor: '#ff6b35',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  fontSize: '1rem',
+                  fontWeight: 'bold',
+                  cursor: 'pointer'
+                }}>
+                Search
+              </button>
+              {showSuggestions && filteredDestinations.length > 0 && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  right: '120px',
+                  backgroundColor: 'white',
+                  border: '1px solid #ddd',
+                  borderRadius: '5px',
+                  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                  maxHeight: '400px',
+                  overflowY: 'auto',
+                  zIndex: 1000
+                }}>
+                  {filteredDestinations.slice(0, 5).map((destination, index) => (
+                    <div
+                      key={index}
+                      onClick={() => handleSuggestionClick(destination.name)}
+                      style={{
+                        padding: '1rem',
+                        cursor: 'pointer',
+                        borderBottom: index < filteredDestinations.slice(0, 5).length - 1 ? '1px solid #eee' : 'none',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '1rem',
+                        hover: {
+                          backgroundColor: '#f8f9fa'
+                        }
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = '#f8f9fa';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'white';
+                      }}
+                    >
+                      <img
+                        src={destination.image}
+                        alt={destination.name}
+                        style={{
+                          width: '60px',
+                          height: '60px',
+                          borderRadius: '8px',
+                          objectFit: 'cover'
+                        }}
+                      />
+                      <div style={{ flex: 1 }}>
+                        <div style={{
+                          fontWeight: 'bold',
+                          color: '#333',
+                          marginBottom: '0.25rem'
+                        }}>
+                          {destination.name}
+                        </div>
+                        <div style={{
+                          fontSize: '0.85rem',
+                          color: '#666',
+                          marginBottom: '0.25rem'
+                        }}>
+                          {destination.description}
+                        </div>
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          fontSize: '0.8rem',
+                          color: '#666'
+                        }}>
+                          <span>⏱️ {destination.duration}</span>
+                          <span>⭐ {destination.rating}</span>
+                          <span style={{
+                            color: '#ff6b35',
+                            fontWeight: 'bold'
+                          }}>
+                            {destination.price}
+                          </span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleBookNow({
+                            name: destination.name,
+                            location: destination.name,
+                            price: destination.price,
+                            duration: destination.duration,
+                            image: destination.image
+                          });
+                        }}
+                        style={{
+                          padding: '0.5rem 1rem',
+                          backgroundColor: '#ff6b35',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '20px',
+                          fontSize: '0.8rem',
+                          fontWeight: 'bold',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        Book Now
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem'
             }}>
-              Search
-            </button>
+              <label style={{
+                color: 'white',
+                fontSize: '1rem',
+                fontWeight: 'bold',
+                textShadow: '1px 1px 2px rgba(0,0,0,0.5)'
+              }}>
+                Check-in Date:
+              </label>
+              <DatePicker
+                selected={checkInDate}
+                onChange={(date) => setCheckInDate(date)}
+                dateFormat="dd/MM/yyyy"
+                placeholderText="Select check-in date"
+                minDate={new Date()}
+                style={{
+                  padding: '0.75rem',
+                  border: 'none',
+                  borderRadius: '5px',
+                  fontSize: '1rem',
+                  width: '200px'
+                }}
+              />
+            </div>
           </div>
         </section>
 

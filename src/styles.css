@@ -1,4 +1,9 @@
   /* Global Styles */
+html {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -124,12 +129,20 @@ h4 {
 }
 
 .navbar {
-  background-color: #333;
+  background-color: black;
   color: white;
-  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .navbar-brand h1 {
@@ -168,6 +181,7 @@ h4 {
   display: flex;
   gap: 1rem;
   align-items: center;
+  width: 100%;
 }
 
 .navbar-links a {
@@ -196,6 +210,11 @@ h4 {
 .register-btn:hover {
   background-color: #e55a2b;
 }
+
+.main-header {
+  /* Removed borders to allow full width black background */
+}
+
 .footer {
   background-color: #333;
   color: white;
@@ -322,7 +341,7 @@ input, button {
 }
 
 .homestay-item img {
-  width: 100%;
+  width: 100git init%;
   height: 200px;
   object-fit: cover;
   border-radius: 8px;
@@ -339,7 +358,7 @@ input, button {
 
 .homestay-item a {
   display: inline-block;
-  margin-top: 10px;
+  margin-top: 20px;
   padding: 8px 12px;
   background-color: #28a745;
   color: white;
@@ -389,11 +408,11 @@ input, button {
 }
 
 .booking-item {
-  border: 1px solid #ddd;
+  border: 1px solid #cb1c1c;
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 10px;
-  background-color: #f9f9f9;
+  background-color: #ee0303;
 }
 
 .stats-section {

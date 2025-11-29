@@ -1,0 +1,82 @@
+/* --- REGISTER CONTAINER STYLING --- */
+.register-container {
+  max-width: 400px;
+  /* Centering: Changed margin-top to a larger value for better vertical centering if used on its own page */
+  margin: 100px auto; 
+  padding: 30px; /* Increased padding for better spacing */
+  border: 1px solid #ced4da; /* Consistent border color and thickness */
+  border-radius: 0; /* STRAIGHT BORDERS */
+  background-color: #ffffff; /* Cleaner white background */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Consistent modern shadow */
+}
+
+/* --- TITLE STYLING --- */
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 25px; /* Increased bottom margin */
+  color: #333;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* --- FORM LAYOUT --- */
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- INPUT FIELDS --- */
+.register-form input {
+  margin-bottom: 20px; /* Increased spacing between inputs */
+  padding: 12px; /* Increased padding for visual weight */
+  border: 1px solid #ced4da;
+  border-radius: 0; /* STRAIGHT BORDERS for inputs */
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.register-form input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Subtle focus ring */
+}
+
+/* --- ERROR MESSAGE --- */
+.error {
+  color: #dc3545;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* --- BUTTON STYLING --- */
+.register-form button {
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0; /* STRAIGHT BORDERS for button */
+  font-size: 18px; /* Consistent font size */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.register-form button:hover {
+  background-color: #0056b3;
+}
+
+/* --- FOOTER TEXT --- */
+.register-container p {
+  text-align: center;
+  margin-top: 15px;
+  color: #6c757d;
+}
+
+.register-container a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.register-container a:hover {
+  text-decoration: underline;
+}
